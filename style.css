@@ -12,3 +12,12 @@
 .page-device .product-panel.me-fleet{background-image:linear-gradient(90deg,rgba(3,10,9,.82),rgba(3,10,9,.13)),url('/me-systems-website/device-road-v2.webp')}
 
 .product-panel:hover{border-color:#87988e}.product-panel:hover .text-link>span:after{height:3px}
+
+/* Page navigation: a short exit and a gentle arrival, with a stable menu. */
+@media (prefers-reduced-motion:no-preference){
+ body.js main{animation:page-arrive 280ms cubic-bezier(.22,1,.36,1) both;transition:opacity 140ms ease-in,transform 140ms ease-in}
+ body.js.page-leaving main{animation:none;opacity:0;transform:translateY(-6px);pointer-events:none}
+ nav a[data-pending]::after{transform:scaleX(1)}
+ nav:has(a[data-pending]) a[aria-current]:not([data-pending])::after{transform:scaleX(0)}
+ @keyframes page-arrive{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+}
