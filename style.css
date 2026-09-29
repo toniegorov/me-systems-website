@@ -37,3 +37,12 @@ nav .nav-label{display:inline-block}
 .contact-icon{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;color:#fff;flex-shrink:0}.contact-icon svg{width:34px;height:34px}.contact-icon.whatsapp{background:#128c45}.contact-icon.telegram{background:#087fad}.contact-icon.telephone-fill{background:#f5f6f2;color:#0b1211}.contact-icon:hover{filter:brightness(1.15)}
 @media(max-width:600px){.contact-buttons{gap:20px}}
 .contact-icon.telegram{background:#fff;color:#229ed9}.contact-icon.telegram svg{width:64px;height:64px}
+
+/* Balance the direct-contact row against the consultation form below. */
+.company-contacts{padding:32px 0}
+.company-contacts>.container{display:flex;align-items:center;justify-content:space-between;gap:32px}
+.company-contacts h2{margin:0}
+.company-contacts .contact-buttons{flex-wrap:nowrap;gap:24px}
+.consent>span{text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:1px;text-underline-offset:6px;text-decoration-skip-ink:none}
+.consent a{text-decoration:none}
+@media(max-width:650px){.company-contacts>.container{flex-direction:column;align-items:flex-start;gap:24px}.company-contacts .contact-buttons{gap:24px}}
