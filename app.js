@@ -52,3 +52,42 @@ if(form){
  }
  submit.disabled=true;submit.textContent='Сохраняем…';status.textContent='';try{const response=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});const result=await response.json();if(!response.ok){if(result.errors){errors(result.errors);form.elements[Object.keys(result.errors)[0]]?.focus();}throw new Error(response.status===429?'Слишком много обращений. Повторите через минуту.':result.message||'Не удалось сохранить обращение. Повторите попытку.');}status.textContent='Обращение сохранено на этом компьютере. Отправка в компанию не выполнялась.';form.reset();attempted=false;errors({});id=crypto.randomUUID();}catch(error){status.textContent='Ошибка: '+(error instanceof TypeError?'Нет связи с локальным сервером. Ваш текст сохранён в форме — попробуйте ещё раз.':error.message);}finally{submit.disabled=false;submit.innerHTML=submitMarkup;}});
 }
+
+// Screenshot language changes only the supplied app captures.
+document.querySelectorAll('.race-gallery').forEach(gallery=>{
+ gallery.querySelectorAll('[data-screen-lang]').forEach(button=>button.addEventListener('click',()=>{
+  const language=button.dataset.screenLang;
+  gallery.querySelectorAll('[data-screen-lang]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+  gallery.querySelectorAll('[data-shot]').forEach(link=>{
+   const img=link.querySelector('img');
+   link.href=img.src.replace(/-(ru|en)\.png$/,`-${language}.png`);
+   img.src=link.href;
+   img.alt=link.closest('figure').querySelector('h3').textContent+' — '+(language==='ru'?'русский':'английский')+' интерфейс ME Race';
+  });
+ }));
+});
+
+// Native dialog keeps keyboard focus inside the image viewer.
+const imageLinks=document.querySelectorAll('.screen-preview, .concept-figure a, .race-shot a');
+if(imageLinks.length){
+ const viewer=document.createElement('dialog');
+ viewer.className='image-viewer';
+ viewer.setAttribute('aria-label','Просмотр изображения');
+ viewer.innerHTML='<button type="button" class="image-viewer-close" aria-label="Закрыть просмотр">×</button><img alt="">';
+ document.body.append(viewer);
+ const picture=viewer.querySelector('img');
+ let opener,previousOverflow;
+ imageLinks.forEach(link=>{
+  link.removeAttribute('target');
+  link.addEventListener('click',event=>{
+   if(event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+   event.preventDefault();opener=link;
+   picture.src=link.href;picture.alt=link.querySelector('img').alt;
+   previousOverflow=document.body.style.overflow;
+   document.body.style.overflow='hidden';viewer.showModal();
+  });
+ });
+ viewer.querySelector('button').addEventListener('click',()=>viewer.close());
+ viewer.addEventListener('click',event=>{if(event.target===viewer)viewer.close();});
+ viewer.addEventListener('close',()=>{document.body.style.overflow=previousOverflow;picture.removeAttribute('src');opener?.focus({preventScroll:true});});
+}

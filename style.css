@@ -46,3 +46,120 @@ nav .nav-label{display:inline-block}
 .consent>span{text-decoration:none;border-bottom:1px solid #00ed24;padding-bottom:5px}
 .consent a{text-decoration:none}
 @media(max-width:650px){.company-contacts>.container{flex-direction:column;align-items:flex-start;gap:24px}.company-contacts .contact-buttons{gap:24px}}
+
+/* Progressive disclosure: concise overview, full project story on demand. */
+.project-section{border-top:1px solid var(--border);padding:28px 0}
+.project-details summary{display:flex;align-items:center;justify-content:space-between;gap:24px;list-style:none;cursor:pointer;width:fit-content;min-height:48px;padding:13px 18px;font-size:16px;line-height:1.35;font-weight:600;max-width:100%;color:var(--text);background:#17211e;border:1px solid #56645d;border-radius:4px;transition:background 180ms ease,border-color 180ms ease}
+.project-details summary::-webkit-details-marker{display:none}
+.project-details summary:hover{background:#202e27;border-color:var(--line)}
+.project-details[open] summary{margin-bottom:24px;border-color:#718378}
+.project-details summary::marker{content:""}
+.project-details summary:focus-visible{outline:2px solid var(--line);outline-offset:6px}
+.disclosure-mark{position:relative;width:24px;height:24px;flex-shrink:0;color:var(--line)}
+.disclosure-mark:before,.disclosure-mark:after{content:'';position:absolute;left:2px;top:11px;width:20px;height:2px;background:currentColor}
+.disclosure-mark:after{transform:rotate(90deg);transition:transform 200ms ease}
+.project-details[open] .disclosure-mark:after{transform:rotate(0)}
+.project-expanded{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr);gap:clamp(28px,5vw,80px);padding:28px 0 40px;border-top:1px solid var(--border);align-items:start}
+.project-reading{max-width:72ch}
+.project-reading article+article{margin-top:30px}
+.project-reading h3{font-size:clamp(21px,2vw,28px);margin-bottom:12px}
+.project-reading p{font-size:17px;line-height:1.75}
+.project-reading strong{color:var(--text);font-weight:600}
+.project-visual{margin:0;position:sticky;top:32px}
+.project-visual img{width:100%;border:1px solid var(--border);border-radius:4px}
+.project-visual figcaption{font-size:13px;color:var(--secondary);margin-top:12px}
+.project-screenshots{padding:28px;border:1px dashed var(--border);border-radius:4px;color:var(--secondary);position:sticky;top:32px}
+.project-screenshots span{display:block;color:var(--text);font-weight:600;margin-bottom:10px}
+.project-screenshots p{font-size:15px;line-height:1.6}
+.project-references{margin-top:28px;padding-top:20px;border-top:1px solid var(--border);font-size:14px}
+.project-references a{display:block;margin-top:10px;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:4px}
+@media(prefers-reduced-motion:no-preference){.project-details[open] .project-expanded{animation:project-reveal 240ms ease-out}@keyframes project-reveal{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}}
+@media(max-width:760px){.project-expanded{grid-template-columns:1fr;padding-bottom:16px}.project-visual,.project-screenshots{position:static}.project-reading p{font-size:16px}.project-section{padding:16px 0}}
+
+/* Full-width disclosure strip, directly between page sections. */
+.project-section{padding:4px 0;border-top:0}
+.project-section>.container{width:100%;max-width:none}
+.project-details summary{width:100%;justify-content:center;gap:12px;border:0;border-radius:0;background:transparent;padding:10px var(--gutter);min-height:44px}
+.project-details summary:hover{background:transparent;color:var(--text)}
+.project-details .disclosure-mark{width:18px;height:18px}
+.project-details .disclosure-mark:before{left:4px;top:3px;width:9px;height:9px;background:none;border-right:2px solid var(--line);border-bottom:2px solid var(--line);transform:rotate(45deg)}
+.project-details .disclosure-mark:after{display:none}
+.project-details[open] .disclosure-mark:before{top:7px;transform:rotate(225deg)}
+.project-details[open] summary{margin-bottom:0}
+.project-expanded{width:calc(100% - var(--gutter)*2);max-width:var(--content);margin-inline:auto;border-top:0}
+.project-details summary:focus-visible{outline-offset:-3px}
+
+/* Disclosure belongs to the device block and shares its background. */
+.device-cta-with-details{display:block;padding-top:0}
+.device-cta-with-details>.project-section{position:relative;width:100%;padding:0;margin:0;background:transparent}
+.device-cta-with-details>.container{padding-top:18px;padding-bottom:12px}
+.device-cta-with-details .project-expanded{background:var(--bg)}
+.device-cta-with-details:has(details[open]) .band-media{top:auto;height:clamp(200px,19vw,310px)}
+.device-cta-with-details:has(details[open])>.project-section{background:var(--bg)}
+@media(max-width:760px){.device-cta-with-details .band-media{top:145px}.device-cta-with-details:has(details[open]) .band-media{top:auto;height:220px}}
+
+/* Real application screens retain their original content and proportions. */
+.page-me-race .feature-media img{border:1px solid var(--border);border-radius:5px}
+:is(.page-me-race,.page-me-fleet,.page-device,.page-company) .project-expanded{display:block}
+:is(.page-me-race,.page-me-fleet,.page-device,.page-company) .project-reading{max-width:none}
+.page-me-race .project-reading>article,.page-me-race .project-references{max-width:72ch;margin-inline:auto}
+.race-gallery{margin-bottom:48px;padding-bottom:36px;border-bottom:1px solid var(--border)}
+.race-gallery-head{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:24px}
+.race-gallery-head h3{margin-bottom:6px}
+.race-gallery-head p{font-size:14px!important}
+.screenshot-languages{display:flex;gap:4px;padding:4px;border:1px solid var(--border);border-radius:5px;flex-shrink:0}
+.screenshot-languages button{border:0;border-radius:3px;background:transparent;color:var(--secondary);padding:9px 14px;font-size:14px}
+.screenshot-languages button[aria-pressed=true]{background:#203229;color:var(--text);box-shadow:inset 0 -2px var(--line)}
+.race-shots{display:grid;grid-template-columns:1fr 1fr;gap:32px 24px}
+.race-shot:first-child{grid-column:1/-1}
+.race-shot a{display:block;border:1px solid var(--border);border-radius:5px;overflow:hidden;cursor:zoom-in}
+.race-shot a:hover{border-color:#7b9184}
+.race-shot img{width:100%;height:auto;display:block}
+.race-shot figcaption{padding-top:16px}
+.project-reading .race-shot h3{font-size:22px;margin-bottom:8px}
+.project-reading .race-shot p{font-size:15px;line-height:1.6;max-width:64ch;margin-bottom:8px}
+.race-shot figcaption>span{color:var(--secondary);font-size:12px}
+@media(max-width:760px){.race-gallery-head{align-items:flex-start;flex-direction:column;gap:16px}.race-shots{grid-template-columns:1fr}.race-gallery{margin-bottom:32px}.race-shot:first-child{grid-column:auto}}
+
+/* Editorial product story: each concept sits beside its explanation. */
+.page-me-race .feature-media{align-self:center}
+.page-me-race .feature-media img{height:auto;max-height:none;object-fit:contain;border:0;border-radius:6px}
+.page-me-race .screen-preview{display:block;margin:0;overflow:visible;background:transparent}
+.page-me-race .screen-preview .feature-image{aspect-ratio:auto;transform:none}
+.concept-intro{max-width:780px;margin:4px 0 36px}
+.project-reading .concept-intro p{font-size:15px;max-width:70ch}
+.concept-row{display:grid;grid-template-columns:minmax(0,0.85fr) minmax(0,1.4fr);gap:clamp(24px,4vw,64px);align-items:center;padding:36px 0;border-top:1px solid var(--border)}
+.concept-copy article+article{margin-top:24px}
+.project-reading .concept-copy p{font-size:16px;line-height:1.7;max-width:60ch}
+.project-reading .concept-copy h3{font-size:clamp(23px,2.1vw,30px)}
+.concept-figure{min-width:0;align-self:center}
+.concept-figure a{display:block;cursor:zoom-in}
+.concept-figure img{width:100%;height:auto;border-radius:6px}
+.concept-figure figcaption{font-size:12px;color:var(--secondary);padding:10px 0 0;text-align:right}
+.project-reading .concept-proposal{margin-top:18px;padding-left:16px;border-left:2px solid var(--line);color:var(--secondary)}
+.concept-text-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px 64px;border-top:1px solid var(--border);padding-top:36px;margin-top:12px}
+.project-reading .concept-text-grid article{margin:0}
+.project-reading .concept-text-grid p{font-size:16px;max-width:64ch;line-height:1.7}
+@media(max-width:900px){.concept-row{grid-template-columns:1fr;gap:24px}.concept-text-grid{grid-template-columns:1fr;gap:28px}.concept-figure figcaption{text-align:left}}
+
+.image-viewer{position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:64px 24px 24px;border:0;background:rgba(4,10,9,.96);color:var(--text)}
+.image-viewer[open]{display:flex;align-items:center;justify-content:center}
+.image-viewer::backdrop{background:rgba(0,0,0,.85)}
+.image-viewer>img{width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;border-radius:5px}
+.image-viewer-close{position:absolute;right:20px;top:12px;width:44px;height:44px;border:1px solid var(--border);border-radius:50%;background:var(--bg);color:var(--text);font-size:32px;line-height:1}
+.image-viewer-close:hover{border-color:var(--line);color:var(--line)}
+@media(max-width:600px){.image-viewer{padding:64px 8px 16px}}
+
+/* Preserve the full laptop frame around the Fleet overview. */
+.page-me-fleet .screen-preview{margin:0;overflow:visible}
+.page-me-fleet .screen-preview .feature-image{aspect-ratio:auto;height:auto;object-fit:contain;transform:none}
+
+.concept-conclusion{text-align:center;padding:36px 0 12px;border-top:1px solid var(--border);margin-top:36px}
+.project-reading .concept-conclusion p{max-width:72ch;margin-inline:auto;font-size:16px;line-height:1.7}
+.page-company .concept-text-grid{grid-template-columns:1fr}
+.page-company .concept-text-grid p{max-width:72ch}
+
+/* Company copy and brand share one vertically centered composition. */
+.company-story{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}
+.company-story .concept-figure{width:100%;max-width:620px;justify-self:center;align-self:center}
+@media(max-width:900px){.company-story{grid-template-columns:1fr}.company-story .concept-figure{max-width:520px}}
