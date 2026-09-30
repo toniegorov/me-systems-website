@@ -67,6 +67,29 @@ document.querySelectorAll('.race-gallery').forEach(gallery=>{
  }));
 });
 
+// Keep native details semantics, with an interruptible height transition.
+document.querySelectorAll('.project-details').forEach(details=>{
+ const summary=details.querySelector('summary');
+ let animation=null,expanded=details.open;
+ summary.addEventListener('click',event=>{
+  if(reducedMotion.matches||!details.animate)return;
+  event.preventDefault();
+  if(!animation)expanded=details.open;
+  const start=details.getBoundingClientRect().height;
+  expanded=!expanded;
+  animation?.cancel();
+  details.style.height='';
+  details.open=true;
+  const end=expanded?details.getBoundingClientRect().height:summary.getBoundingClientRect().height;
+  details.style.overflow='hidden';
+  animation=details.animate({height:[`${start}px`,`${end}px`]},{duration:expanded?280:200,easing:'cubic-bezier(.22,1,.36,1)'});
+  animation.onfinish=()=>{details.open=expanded;details.style.overflow='';animation=null;};
+ });
+ reducedMotion.addEventListener('change',()=>{
+  if(reducedMotion.matches&&animation){animation.cancel();animation=null;details.open=expanded;details.style.overflow='';}
+ });
+});
+
 // Native dialog keeps keyboard focus inside the image viewer.
 const imageLinks=document.querySelectorAll('.screen-preview, .concept-figure a, .race-shot a');
 if(imageLinks.length){
@@ -76,7 +99,15 @@ if(imageLinks.length){
  viewer.innerHTML='<button type="button" class="image-viewer-close" aria-label="Закрыть просмотр">×</button><img alt="">';
  document.body.append(viewer);
  const picture=viewer.querySelector('img');
- let opener,previousOverflow;
+ let opener,previousOverflow,closing=false;
+ function closeViewer(){
+  if(closing||!viewer.open)return;
+  if(reducedMotion.matches||!viewer.animate){viewer.close();return;}
+  closing=true;
+  viewer.classList.add('is-closing');
+  const exit=viewer.animate({opacity:[1,0]},{duration:150,easing:'ease-in'});
+  exit.finished.then(()=>viewer.close()).catch(()=>viewer.close());
+ }
  imageLinks.forEach(link=>{
   link.removeAttribute('target');
   link.addEventListener('click',event=>{
@@ -87,7 +118,8 @@ if(imageLinks.length){
    document.body.style.overflow='hidden';viewer.showModal();
   });
  });
- viewer.querySelector('button').addEventListener('click',()=>viewer.close());
- viewer.addEventListener('click',event=>{if(event.target===viewer)viewer.close();});
- viewer.addEventListener('close',()=>{document.body.style.overflow=previousOverflow;picture.removeAttribute('src');opener?.focus({preventScroll:true});});
+ viewer.querySelector('button').addEventListener('click',closeViewer);
+ viewer.addEventListener('cancel',event=>{event.preventDefault();closeViewer();});
+ viewer.addEventListener('click',event=>{if(event.target===viewer)closeViewer();});
+ viewer.addEventListener('close',()=>{closing=false;viewer.classList.remove('is-closing');document.body.style.overflow=previousOverflow;picture.removeAttribute('src');opener?.focus({preventScroll:true});});
 }
