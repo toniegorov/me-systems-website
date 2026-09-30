@@ -183,3 +183,88 @@ nav .nav-label{display:inline-block}
  .page-home .product-panel p,.page-home .product-panel .audience{font-size:clamp(16px,1.42vw,20px)}
  .page-home .text-link{font-size:clamp(16px,1.4vw,20px)}
 }
+
+/* Fleet: a compact entry point and a dedicated long-form reading surface. */
+.fleet-details-entry{background:#15191b;border-bottom:1px solid #394044;padding:28px 0}
+.fleet-details-layout{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:28px}
+.fleet-details-entry h2{font-size:clamp(24px,2.2vw,32px);margin-bottom:8px}
+.fleet-details-entry p{font-size:16px;line-height:1.5;color:#c3c8cb}
+.fleet-details-topics{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:10px}
+.fleet-details-topics a{display:inline-flex;align-items:center;min-height:44px;font-size:14px;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:7px}
+.fleet-details-topics a:hover{color:#fff;text-decoration-thickness:2px}
+.fleet-details-button{background:transparent;color:var(--text);border-color:#889093;font-size:16px;font-weight:600;white-space:nowrap}
+.fleet-details-button:hover{background:#272d30;border-color:#e2e5e7}
+.fleet-reader-fallback{padding-block:24px}
+.fleet-reader-fallback[hidden]{display:none}
+.fleet-reader-fallback summary{cursor:pointer}
+.fleet-reader-fallback .reader-close{display:none}
+.fleet-reader{position:fixed;inset:0;width:min(1200px,calc(100vw - 64px));height:min(880px,calc(100dvh - 64px));max-width:none;max-height:none;margin:auto;padding:0;border:1px solid #495156;border-radius:8px;background:#171b1e;color:#f5f6f2;box-shadow:0 24px 100px #0008;overflow:hidden}
+.fleet-reader::backdrop{background:rgba(0,0,0,.78)}
+.reader-shell{height:100%;display:flex;flex-direction:column;min-height:0}
+.reader-header{position:static;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 24px;border-bottom:1px solid #373e43;flex-shrink:0;background:#171b1e}
+.reader-header h2{font-size:22px;line-height:1.3;margin:0}
+.reader-header h2 span{font-size:16px;font-weight:400;color:#bec5c9;margin-left:16px}
+.reader-close{width:44px;height:44px;flex-shrink:0;background:transparent;border:1px solid transparent;border-radius:4px;color:#f5f6f2;font-size:30px;line-height:1}
+.reader-close:hover{background:#2a3034;border-color:#6e777d}
+.reader-layout{display:grid;grid-template-columns:236px minmax(0,1fr);flex:1;min-height:0}
+.reader-sidebar{padding:26px 16px;border-right:1px solid #373e43;overflow:auto;overscroll-behavior:contain}
+.reader-sidebar>p{font-size:14px;font-weight:700;color:#f5f6f2;margin:0 12px 14px}
+.reader-toc{display:flex;flex-direction:column;gap:4px}
+.reader-toc a{display:block;font-size:14px;line-height:1.5;padding:12px;border-left:2px solid transparent;color:#bdc5ca;transition:background 150ms ease,color 150ms ease}
+.reader-toc a:hover{background:#242a2e;color:#fff}
+.reader-toc a[aria-current]{color:#fff;border-color:var(--line);background:#20262a}
+.reader-article{overflow:auto;overscroll-behavior:contain;padding:32px 40px 48px;scrollbar-color:#667078 #171b1e;min-width:0}
+.reader-section{scroll-margin-top:32px;padding-bottom:32px;margin-bottom:32px;border-bottom:1px solid #373e43}
+.reader-section:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.reader-section h3{font-size:clamp(23px,2vw,29px);line-height:1.25;margin-bottom:18px}
+.reader-section p{font-size:16px;line-height:1.8;color:#c7cdd1;max-width:72ch}
+.reader-section .concept-figure{margin-top:24px;width:100%}
+.reader-section .concept-figure a{display:block}
+.reader-section .concept-figure img{width:100%;height:auto;border:1px solid #454e54;border-radius:6px}
+.reader-section:last-child{text-align:left}
+.fleet-reader-fallback .reader-layout{display:block}
+.fleet-reader-fallback .reader-sidebar{display:none}
+@media(max-width:760px){
+ .fleet-details-layout{grid-template-columns:1fr;gap:16px}
+ .fleet-details-button{justify-self:start}
+ .fleet-reader{width:100%;height:100dvh;border:0;border-radius:0}
+ .reader-header{padding:12px 16px;gap:8px}
+ .reader-header h2{font-size:19px}
+ .reader-header h2 span{display:block;font-size:13px;margin:3px 0 0}
+ .reader-layout{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+ .reader-sidebar{padding:8px 16px;overflow:hidden;border-right:0;border-bottom:1px solid #373e43}
+ .reader-sidebar>p{display:none}
+ .reader-toc{flex-direction:row;overflow:auto;gap:8px;padding:4px 0;scrollbar-width:thin}
+ .reader-toc a{flex-shrink:0;white-space:nowrap;padding:10px 8px;border-left:0;border-bottom:2px solid transparent}
+ .reader-article{padding:24px 20px 40px}
+ .reader-section{scroll-margin-top:24px}
+ .reader-section p{font-size:15px;line-height:1.75}
+}
+@media(max-width:420px){.fleet-details-button{width:100%}.fleet-details-topics{gap:4px 18px}}
+@media(prefers-reduced-motion:no-preference){
+ .fleet-reader[open]{animation:fleet-reader-enter 220ms cubic-bezier(.22,1,.36,1)}
+ .fleet-reader[open]::backdrop{animation:viewer-appear 180ms ease-out}
+ @keyframes fleet-reader-enter{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:none}}
+}
+
+/* Desktop article copy uses the same full column as its illustrations. */
+@media(min-width:761px){.reader-section p{max-width:none}}
+
+/* Chapter introductions pair a concise idea with a lightweight process diagram. */
+.reader-section-intro{margin-bottom:24px}
+.reader-section-intro.has-flow{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(240px,1fr);gap:28px;align-items:center}
+.reader-section-intro .reader-topic{font-size:12px;letter-spacing:.06em;color:#9ca6ad;margin-bottom:10px}
+.reader-section-intro h3{font-size:24px;margin-bottom:12px}
+.reader-section-intro .reader-summary{font-size:15px;line-height:1.6;color:#d5dade}
+.reader-prose p+p{margin-top:16px}
+.reader-flow{--flow-gap:26px;display:flex;align-items:center;justify-content:space-between;gap:var(--flow-gap);margin:0;padding:16px 0;list-style:none}
+.reader-flow li{position:relative;flex:1;text-align:center;font-size:11px;font-weight:600;color:#d5dade}
+.reader-flow .flow-label{display:block;white-space:nowrap;line-height:16px;margin-bottom:14px}
+.reader-flow .flow-symbol{display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin:auto;border:1px solid #60676b;border-radius:50%;background:linear-gradient(145deg,#303639,#1c2225);box-shadow:inset 0 0 0 3px #ffffff05}
+.flow-symbol svg{width:18px;height:18px;color:#d7dcdf}
+.reader-flow li+li::before{content:'';position:absolute;left:calc(-50% - var(--flow-gap) + 26px);top:49px;width:calc(100% + var(--flow-gap) - 52px);height:1px;background:#9da6ab}
+.reader-flow li+li::after{content:'';position:absolute;left:calc(50% - 31px);top:46px;width:6px;height:6px;border-top:1px solid #9da6ab;border-right:1px solid #9da6ab;transform:rotate(45deg)}
+.flow-event-dot{display:block;width:17px;height:17px;background:#58dd78;border:2px solid #b1f4c0;border-radius:50%;box-shadow:0 0 0 4px #62dc7915}
+.reader-flow li:nth-child(2) .flow-symbol svg{color:#6fe38b}
+@media(max-width:1100px){.reader-section-intro.has-flow{grid-template-columns:1fr;gap:12px}.reader-flow{max-width:420px;width:100%}}
+@media(max-width:760px){.reader-section-intro h3{font-size:23px}.reader-flow{--flow-gap:16px}.reader-flow li{font-size:11px}}

@@ -123,3 +123,80 @@ if(imageLinks.length){
  viewer.addEventListener('click',event=>{if(event.target===viewer)closeViewer();});
  viewer.addEventListener('close',()=>{closing=false;viewer.classList.remove('is-closing');document.body.style.overflow=previousOverflow;picture.removeAttribute('src');opener?.focus({preventScroll:true});});
 }
+
+// Enhance the Fleet article into a native modal; the full copy remains in HTML.
+const fleetFallback=document.querySelector('.fleet-reader-fallback');
+if(fleetFallback && typeof HTMLDialogElement!=='undefined'){
+ const reader=document.createElement('dialog');
+ reader.id='fleet-reader';reader.className='fleet-reader';
+ reader.setAttribute('aria-labelledby','fleet-reader-title');
+ reader.append(fleetFallback.querySelector('.reader-shell'));
+ document.body.append(reader);fleetFallback.hidden=true;
+ const article=reader.querySelector('.reader-article');
+ const sections=[...article.querySelectorAll('.reader-section')];
+ const toc=[...reader.querySelectorAll('[data-reader-section]')];
+ let opener,previousOverflow,closing=false,programmaticTop=null,scrollFrame=0;
+ function setCurrent(id){
+  toc.forEach(link=>{
+   if(link.dataset.readerSection===id){
+    const changed=!link.hasAttribute('aria-current');
+    link.setAttribute('aria-current','location');
+    if(changed&&matchMedia('(max-width:760px)').matches){
+     const list=link.parentElement;
+     list.scrollTo({left:list.scrollLeft+link.getBoundingClientRect().left-list.getBoundingClientRect().left-8,behavior:'instant'});
+    }
+   }else link.removeAttribute('aria-current');
+  });
+ }
+ function goTo(id,focus=false){
+  const section=sections.find(item=>item.id===id)||sections[0];
+  article.scrollTo({top:article.scrollTop+section.getBoundingClientRect().top-article.getBoundingClientRect().top-parseFloat(getComputedStyle(article).paddingTop),behavior:'instant'});
+  programmaticTop=article.scrollTop;
+  setCurrent(section.id);
+  if(focus)section.querySelector('h3').focus({preventScroll:true});
+ }
+ document.querySelectorAll('[data-reader-open]').forEach(link=>link.addEventListener('click',event=>{
+  if(event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+  event.preventDefault();opener=link;previousOverflow=document.body.style.overflow;
+  document.body.style.overflow='hidden';reader.showModal();
+  goTo(link.dataset.readerOpen);
+ }));
+ toc.forEach(link=>link.addEventListener('click',event=>{
+  event.preventDefault();goTo(link.dataset.readerSection,true);
+ }));
+ // Track the reading area, not section intersection thresholds: short final
+ // sections cannot reach the top when the article has reached its scroll limit.
+ function updateReadingPosition(){
+  scrollFrame=0;
+  if(!reader.open||article.scrollTop===programmaticTop)return;
+  programmaticTop=null;
+  const atEnd=article.scrollHeight-article.clientHeight-article.scrollTop<=2;
+  const remaining=article.scrollHeight-article.clientHeight-article.scrollTop;
+  // Move the reading line down through the last viewport so both short final
+  // chapters become active before reaching the end of the document.
+  const endProgress=Math.max(0,1-remaining/article.clientHeight);
+  const readingLine=article.getBoundingClientRect().top+40+(article.clientHeight-80)*endProgress;
+  const current=atEnd?sections[sections.length-1]:
+   [...sections].reverse().find(section=>section.getBoundingClientRect().top<=readingLine)||sections[0];
+  setCurrent(current.id);
+ }
+ article.addEventListener('scroll',()=>{
+  if(!scrollFrame)scrollFrame=requestAnimationFrame(updateReadingPosition);
+ },{passive:true});
+ function closeReader(){
+  if(closing||!reader.open)return;
+  if(reducedMotion.matches||!reader.animate){reader.close();return;}
+  closing=true;
+  reader.animate({opacity:[1,0],transform:['translateY(0)','translateY(6px)']},{duration:140,easing:'ease-in'}).finished.then(()=>reader.close()).catch(()=>reader.close());
+ }
+ reader.querySelector('.reader-close').addEventListener('click',closeReader);
+ reader.addEventListener('cancel',event=>{event.preventDefault();closeReader();});
+ reader.addEventListener('click',event=>{
+  const bounds=reader.getBoundingClientRect();
+  if(event.target===reader&&(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom))closeReader();
+ });
+ reader.addEventListener('close',()=>{
+  closing=false;document.body.style.overflow=previousOverflow;
+  opener?.focus({preventScroll:true});
+ });
+}
