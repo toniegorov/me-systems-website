@@ -71,3 +71,18 @@ a:hover .corporate-link>span,.corporate-link:hover>span{transform:translateX(4px
 .corporate-company-hero .corporate-hero-copy{max-width:520px}
 .corporate-company-hero .corporate-hero-shade{background:linear-gradient(90deg,rgba(11,18,17,.96) 0%,rgba(11,18,17,.87) 25%,rgba(11,18,17,.4) 47%,rgba(11,18,17,.04) 72%),linear-gradient(0deg,rgba(11,18,17,.75),transparent 25%)}
 @media(max-width:760px){.corporate-company-hero .corporate-hero-image{object-position:center}.corporate-company-hero .corporate-hero-shade{background:linear-gradient(0deg,#0b1211 35%,transparent 80%)}}
+
+.corporate-company-hero{height:clamp(480px,37vw,650px);min-height:480px}
+@media(max-width:760px){.corporate-company-hero{height:auto;min-height:0}.corporate-company-hero .corporate-hero-image{object-position:85% center}}
+
+/* Subtle graphite light and gloss on the corporate surfaces. */
+.page-me-home .precision-root,.page-me-company .precision-root{background:radial-gradient(ellipse at 85% 20%,rgba(146,157,157,.035),transparent 48%),linear-gradient(135deg,#101615,#151b19 52%,#101615)}
+.corporate-section{background:linear-gradient(115deg,rgba(255,255,255,.01),transparent 48%)}
+.corporate-product{box-shadow:inset 0 1px 0 rgba(255,255,255,.055)}
+.page-me-company .contact{min-height:100svh;display:flex;align-items:center;padding-block:clamp(48px,7vh,88px);background:radial-gradient(ellipse at 90% 0%,rgba(211,223,221,.035),transparent 65%),linear-gradient(135deg,#171e1b,#111917 75%);box-shadow:inset 0 1px 0 rgba(255,255,255,.055)}
+.page-me-company .contact>.container{width:100%;max-width:none}
+.page-me-company #contact-form{max-width:none}
+.page-me-company input:not([type=checkbox]),.page-me-company select,.page-me-company textarea{background:linear-gradient(150deg,rgba(255,255,255,.025),rgba(255,255,255,.008));box-shadow:inset 0 1px 0 rgba(255,255,255,.035);border-color:#56625c}
+.page-me-company select option{background:#202725;color:#f7f8f8}
+@media(min-width:1000px){.page-me-company .contact textarea{min-height:clamp(120px,17vh,220px)}}
+@media(max-width:760px){.page-me-company .contact{padding-block:44px;min-height:100svh}}
