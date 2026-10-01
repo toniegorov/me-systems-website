@@ -1,8 +1,8 @@
-@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('race-precision/inter-400.woff') format('woff')}
-@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('race-precision/inter-500.woff') format('woff')}
-@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('race-precision/inter-600.woff') format('woff')}
-@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('race-precision/jetbrains-mono-400.woff') format('woff')}
-@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('race-precision/jetbrains-mono-500.woff') format('woff')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('/me-systems-website/race-precision/inter-400.woff') format('woff')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('/me-systems-website/race-precision/inter-500.woff') format('woff')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('/me-systems-website/race-precision/inter-600.woff') format('woff')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/me-systems-website/race-precision/jetbrains-mono-400.woff') format('woff')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/me-systems-website/race-precision/jetbrains-mono-500.woff') format('woff')}
 
 body{margin:0;background:#0b1211}
 a{color:#F7F8F8;text-decoration:none}
@@ -345,4 +345,14 @@ a:hover{color:#FFFFFF}
  .page-me-fleet .fleet-telemetry{max-width:none}
  .page-me-fleet .section-track{height:37.04vw;min-height:540px}
  .page-me-company .corporate-company-hero{height:37.02vw;max-height:none}
+}
+/* Keep every Race telemetry value visible on phones: lap summary, then sectors. */
+@media(max-width:760px){
+ .page-me-race .section-race-hero .telemetry-grid{grid-template-columns:repeat(4,minmax(0,1fr));padding-inline:16px;align-items:stretch}
+ .page-me-race .telemetry-grid>div{min-width:0;padding:14px 6px}
+ .page-me-race .telemetry-grid>div:first-child{padding-left:0}
+ .page-me-race .telemetry-grid>.four-grid{display:grid;grid-column:1/-1;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:16px 0 18px;border-top:1px solid #ffffff14}
+ .page-me-race .telemetry-grid>.four-grid>div{min-width:0;gap:10px}
+ .page-me-race .telemetry-grid .mono{font-size:clamp(11px,3.25vw,15px)}
+ .page-me-race .telemetry-grid>div:not(.four-grid)>.lbl{min-height:23px}
 }

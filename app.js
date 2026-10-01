@@ -1,9 +1,11 @@
 'use strict';
+const uiEnglish={"Открыть меню": "Open menu", "Закрыть меню": "Close menu", "Введите имя от 2 до 100 символов.": "Enter a name between 2 and 100 characters.", "Укажите корректный email для ответа.": "Enter a valid email address for a reply.", "Выберите тему обращения.": "Select an enquiry topic.", "Введите сообщение от 10 до 5000 символов.": "Enter a message between 10 and 5,000 characters.", "Подтвердите ознакомление с условиями.": "Confirm that you have read the terms.", "Ошибка: ": "Error: ", "ME Systems — обращение": "ME Systems — enquiry", "Имя: ": "Name: ", "Тема: ": "Topic: ", "Файл создан на устройстве. Обращение не отправлено в компанию.": "File created on your device. The enquiry has not been sent to the company.", "Текст обращения подготовлен для скачивания. Отправка в компанию не выполнялась.": "Your enquiry is ready to download. It has not been sent to the company.", "Сохраняем…": "Saving…", "Слишком много обращений. Повторите через минуту.": "Too many enquiries. Please try again in a minute.", "Не удалось сохранить обращение. Повторите попытку.": "Unable to save your enquiry. Please try again.", "Обращение сохранено на этом компьютере. Отправка в компанию не выполнялась.": "Your enquiry has been saved on this computer. It has not been sent to the company.", "Нет связи с локальным сервером. Ваш текст сохранён в форме — попробуйте ещё раз.": "Cannot connect to the local server. Your text is still in the form — please try again.", "Просмотр изображения": "Image viewer", "Закрыть просмотр": "Close image viewer"};
+const t=text=>document.documentElement.lang==='en'?(uiEnglish[text]||text):text;
 document.body.classList.add('js');
 const toggle=document.querySelector('.menu-toggle');
 const nav=document.querySelector('nav');
-function closeMenu(){nav.classList.remove('open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Открыть меню');}
-toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';nav.classList.toggle('open',open);toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');});
+function closeMenu(){nav.classList.remove('open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label',t('Открыть меню'));}
+toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';nav.classList.toggle('open',open);toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?t('Закрыть меню'):t('Открыть меню'));});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){closeMenu();toggle.focus();}});
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 let navigationTimer;
@@ -40,17 +42,17 @@ if(form){
  const submitMarkup=submit.innerHTML;
  let attempted=false,id=crypto.randomUUID();
  function data(){return Object.fromEntries(['name','email','topic','message','website'].map(k=>[k,form.elements[k].value.trim()]).concat([['privacyAcknowledged',form.elements.privacyAcknowledged.checked],['sourcePage',location.pathname],['requestId',id]]));}
- function validate(d){const e={};if(d.name.length<2||d.name.length>100)e.name='Введите имя от 2 до 100 символов.';if(!d.email||!form.elements.email.validity.valid)e.email='Укажите корректный email для ответа.';if(!d.topic)e.topic='Выберите тему обращения.';if(d.message.length<10||d.message.length>5000)e.message='Введите сообщение от 10 до 5000 символов.';if(!d.privacyAcknowledged)e.privacyAcknowledged='Подтвердите ознакомление с условиями.';return e;}
- function errors(e){for(const key of ['name','email','topic','message','privacyAcknowledged']){document.getElementById(key+'-error').textContent=e[key]?'Ошибка: '+e[key]:'';form.elements[key].setAttribute('aria-invalid',String(!!e[key]));}}
+ function validate(d){const e={};if(d.name.length<2||d.name.length>100)e.name=t('Введите имя от 2 до 100 символов.');if(!d.email||!form.elements.email.validity.valid)e.email=t('Укажите корректный email для ответа.');if(!d.topic)e.topic=t('Выберите тему обращения.');if(d.message.length<10||d.message.length>5000)e.message=t('Введите сообщение от 10 до 5000 символов.');if(!d.privacyAcknowledged)e.privacyAcknowledged=t('Подтвердите ознакомление с условиями.');return e;}
+ function errors(e){for(const key of ['name','email','topic','message','privacyAcknowledged']){document.getElementById(key+'-error').textContent=e[key]?t('Ошибка: ')+t(e[key]):'';form.elements[key].setAttribute('aria-invalid',String(!!e[key]));}}
  form.addEventListener('input',()=>{if(attempted)errors(validate(data()));});
  form.addEventListener('submit',async event=>{event.preventDefault();if(submit.disabled)return;attempted=true;const d=data(),e=validate(d);errors(e);if(Object.keys(e).length){form.elements[Object.keys(e)[0]].focus();return;}if(document.body.dataset.contactMode==='download'){
  const topicLabel=form.elements.topic.selectedOptions[0].textContent;
- const body=['ME Systems — обращение','Имя: '+d.name,'Email: '+d.email,'Тема: '+topicLabel,'',d.message,'','Файл создан на устройстве. Обращение не отправлено в компанию.'].join('\n');
+ const body=[t('ME Systems — обращение'),t('Имя: ')+d.name,'Email: '+d.email,t('Тема: ')+topicLabel,'',d.message,'',t('Файл создан на устройстве. Обращение не отправлено в компанию.')].join('\n');
  const url=URL.createObjectURL(new Blob(['\uFEFF'+body],{type:'text/plain;charset=utf-8'}));
  const download=document.createElement('a');download.href=url;download.download='ME-Systems-request.txt';document.body.append(download);download.click();download.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
- status.textContent='Текст обращения подготовлен для скачивания. Отправка в компанию не выполнялась.';return;
+ status.textContent=t('Текст обращения подготовлен для скачивания. Отправка в компанию не выполнялась.');return;
  }
- submit.disabled=true;submit.textContent='Сохраняем…';status.textContent='';try{const response=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});const result=await response.json();if(!response.ok){if(result.errors){errors(result.errors);form.elements[Object.keys(result.errors)[0]]?.focus();}throw new Error(response.status===429?'Слишком много обращений. Повторите через минуту.':result.message||'Не удалось сохранить обращение. Повторите попытку.');}status.textContent='Обращение сохранено на этом компьютере. Отправка в компанию не выполнялась.';form.reset();attempted=false;errors({});id=crypto.randomUUID();}catch(error){status.textContent='Ошибка: '+(error instanceof TypeError?'Нет связи с локальным сервером. Ваш текст сохранён в форме — попробуйте ещё раз.':error.message);}finally{submit.disabled=false;submit.innerHTML=submitMarkup;}});
+ submit.disabled=true;submit.textContent=t('Сохраняем…');status.textContent='';try{const response=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});const result=await response.json();if(!response.ok){if(result.errors){errors(result.errors);form.elements[Object.keys(result.errors)[0]]?.focus();}throw new Error(response.status===429?t('Слишком много обращений. Повторите через минуту.'):(document.documentElement.lang==='en'?null:result.message)||t('Не удалось сохранить обращение. Повторите попытку.'));}status.textContent=t('Обращение сохранено на этом компьютере. Отправка в компанию не выполнялась.');form.reset();attempted=false;errors({});id=crypto.randomUUID();}catch(error){status.textContent=t('Ошибка: ')+(error instanceof TypeError?t('Нет связи с локальным сервером. Ваш текст сохранён в форме — попробуйте ещё раз.'):error.message);}finally{submit.disabled=false;submit.innerHTML=submitMarkup;}});
 }
 
 // Screenshot language changes only the supplied app captures.
@@ -95,8 +97,8 @@ const imageLinks=document.querySelectorAll('.screen-preview, .concept-figure a, 
 if(imageLinks.length){
  const viewer=document.createElement('dialog');
  viewer.className='image-viewer';
- viewer.setAttribute('aria-label','Просмотр изображения');
- viewer.innerHTML='<button type="button" class="image-viewer-close" aria-label="Закрыть просмотр">×</button><img alt="">';
+ viewer.setAttribute('aria-label',t('Просмотр изображения'));
+ viewer.innerHTML='<button type="button" class="image-viewer-close">×</button><img alt="">';viewer.querySelector('button').setAttribute('aria-label',t('Закрыть просмотр'));
  document.body.append(viewer);
  const picture=viewer.querySelector('img');
  let opener,previousOverflow,closing=false;

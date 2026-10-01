@@ -1,0 +1,29 @@
+/* Shared language controls: same position on every page, always visible. */
+header .language-switch{display:flex;align-items:center;gap:2px;margin-left:auto;flex:none;order:4;font:500 12px/1.2 Inter,system-ui,sans-serif;letter-spacing:.04em}
+header .language-switch a{display:flex;justify-content:center;align-items:center;min-width:40px;min-height:44px;padding:0 8px;color:#aab2b0;text-decoration:none;position:relative}
+header .language-switch a[aria-current]{color:#eef3ef}
+header .language-switch a[aria-current]:after{content:"";position:absolute;left:8px;right:8px;bottom:5px;height:2px;background:#7edb6b}
+header .language-switch a:hover{color:#fff}
+header .language-switch a:focus-visible{outline:2px solid #b2fb86;outline-offset:2px}
+.precision-header .header-shell{gap:clamp(24px,5vw,100px)}
+.precision-header .nav{gap:clamp(22px,3vw,60px)}
+.precision-header .menu-toggle{order:3;margin-left:auto}
+html[lang="en"] .lbl{overflow-wrap:normal}
+html[lang="en"] .btn{white-space:normal;text-align:center}
+html[lang="en"] .fleet-telemetry .lbl{letter-spacing:.06em}
+@media(max-width:1050px){
+ .precision-header .header-shell{gap:12px}
+ header .language-switch{margin-left:0}
+ .precision-header #navigation{top:100%}
+}
+@media(max-width:420px){
+ .precision-header .header-shell{padding-inline:16px;gap:8px}
+ .precision-header .precision-logo{width:104px}
+ .precision-header .menu-toggle{min-width:54px;font-size:12px}
+ header .language-switch a{min-width:36px;padding-inline:6px}
+}
+@media(min-width:1051px){
+ .precision-header .header-shell{display:grid;grid-template-columns:1fr auto 1fr;gap:24px}
+ .precision-header .header-shell>.nav{grid-column:2;justify-self:center}
+ .precision-header .language-switch{grid-column:3;justify-self:end;margin-left:0}
+}
