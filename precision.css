@@ -1,8 +1,8 @@
-@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('/me-systems-website/race-precision/inter-400.woff') format('woff')}
-@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('/me-systems-website/race-precision/inter-500.woff') format('woff')}
-@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('/me-systems-website/race-precision/inter-600.woff') format('woff')}
-@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('/me-systems-website/race-precision/jetbrains-mono-400.woff') format('woff')}
-@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('/me-systems-website/race-precision/jetbrains-mono-500.woff') format('woff')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('race-precision/inter-400.woff') format('woff')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('race-precision/inter-500.woff') format('woff')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('race-precision/inter-600.woff') format('woff')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('race-precision/jetbrains-mono-400.woff') format('woff')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('race-precision/jetbrains-mono-500.woff') format('woff')}
 
 body{margin:0;background:#0b1211}
 a{color:#F7F8F8;text-decoration:none}
@@ -331,3 +331,18 @@ a:hover{color:#FFFFFF}
 .race-laptop-display{position:absolute;left:7.9%;top:7.05%;width:81.2%;height:81.5%;display:flex;align-items:center;overflow:hidden;background:#101313;border-radius:4px}
 .race-fleet-laptop .race-laptop-display img{display:block;width:100%;height:100%;max-height:none;object-fit:contain}
 @media(max-width:760px){.section-capabilities .race-fleet-laptop{max-width:100%}}
+
+/* Full-width compositions retain their subjects on large and ultrawide displays. */
+@media(min-width:761px){
+ .page-me-fleet #fleet-hero .precision-hero-photo{height:calc(100% - 104px);bottom:104px;object-position:right bottom}
+ .page-me-fleet #fleet-hero .v2-21{bottom:104px}
+}
+@media(min-width:1441px){
+ body:not(.page-me-home) .precision-container:not(.header-shell){max-width:none;padding-inline:4vw}
+ .page-me-fleet #fleet-hero{height:calc(40vw + 104px);min-height:640px;max-height:none}
+ .page-me-race.precision-overview .section-race-hero{height:calc(37.11vw + 104px);min-height:640px;max-height:none}
+ .page-me-device .device-hero{height:40vw;min-height:540px;max-height:none}
+ .page-me-fleet .fleet-telemetry{max-width:none}
+ .page-me-fleet .section-track{height:37.04vw;min-height:540px}
+ .page-me-company .corporate-company-hero{height:37.02vw;max-height:none}
+}
