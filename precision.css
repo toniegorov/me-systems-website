@@ -268,3 +268,29 @@ a:hover{color:#FFFFFF}
  html:has(dialog[open]){scroll-snap-type:none}
 }
 @media(min-width:761px){.section-capabilities{padding-block:20px}.section-capabilities .precision-figure{max-width:calc(35svh * 1.641)}.section-capabilities .precision-figure img{max-height:35svh}}
+
+/* Fleet uses the same Precision shell and motion as Race. */
+.fleet-process{display:grid;grid-template-columns:repeat(4,1fr);padding-block:18px;gap:24px}.fleet-process>div{display:flex;flex-direction:column;gap:7px;border-left:1px solid var(--border);padding-left:20px}.fleet-process>div:first-child{border:0;padding-left:0}.fleet-process>div>span:last-child{font-size:18px}.fleet-disclosure{border-block:1px solid var(--border);padding-block:28px}.fleet-disclosure>.precision-container{display:flex;align-items:center;justify-content:space-between;gap:24px}.fleet-disclosure h2{font-size:24px;margin:8px 0}.fleet-disclosure p{margin:0}.fleet-disclosure .btn{gap:20px}.fleet-topics{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:28px}.fleet-topics a{min-height:44px;display:flex;align-items:center;border-bottom:1px solid var(--border);font-size:14px}.fleet-topics a:hover{color:var(--accent)}.fleet-about-intro h1{margin:18px 0}.fleet-detail{border-top:1px solid var(--border)}.fleet-detail-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:64px}.fleet-detail h2{margin:18px 0;font-size:32px}.fleet-detail-copy p{margin:0 0 18px;line-height:1.75}.fleet-detail-figure{margin:28px auto 0;max-width:780px}.fleet-detail-figure img{display:block;width:100%;max-height:48svh;object-fit:contain}.fleet-detail-figure figcaption{margin-top:14px}.fleet-flow{display:flex;list-style:none;padding:24px 0 0;margin:16px 0 0;border-top:1px solid var(--border);max-width:720px}.fleet-flow li{flex:1;position:relative;display:flex;flex-direction:column;gap:12px;align-items:center}.fleet-flow-node{width:40px;height:40px;border:1px solid var(--border);border-radius:50%;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;color:var(--accent);background:#151c1b}.fleet-flow li:not(:last-child):after{content:'→';position:absolute;top:40px;left:calc(50% + 28px);width:calc(100% - 56px);text-align:center;color:#9a9fa8;font-size:28px;line-height:24px}.page-me-fleet .v2-68{filter:none}.page-me-fleet .section-capabilities .precision-figure{max-width:calc(35svh * 1.838)}
+@media(max-width:760px){.fleet-process{grid-template-columns:repeat(2,1fr);gap:14px}.fleet-process>div{padding-left:0;border:0}.fleet-process>div>span:last-child{font-size:15px}.fleet-detail-grid{grid-template-columns:1fr;gap:16px}.fleet-detail h2{font-size:28px}.fleet-disclosure>.precision-container{align-items:flex-start;flex-direction:column}.fleet-detail-figure img{max-height:none}.fleet-flow .lbl{font-size:9px}.fleet-flow-node{width:34px;height:34px;font-size:12px}.fleet-flow li:not(:last-child):after{left:calc(50% + 21px);width:calc(100% - 42px);top:34px}.page-me-fleet .section-capabilities .precision-figure{max-width:100%}}
+.page-me-fleet .section-race-hero .precision-hero-photo{width:100%;object-position:right center}.page-me-fleet .v2-61 svg{width:24px;height:24px}.fleet-flow li:not(:last-child):after{content:'';top:51px;height:1px;background:#777e80}.fleet-flow li:not(:last-child):before{content:'';position:absolute;top:48px;right:24px;width:6px;height:6px;border-top:1px solid #777e80;border-right:1px solid #777e80;transform:rotate(45deg)}
+@media(max-width:760px){.fleet-flow li:not(:last-child):after{top:43px}.fleet-flow li:not(:last-child):before{top:40px;right:18px}.page-me-fleet .section-race-hero .precision-hero-photo{object-position:85% center}}
+.fleet-cycle h3,.fleet-cycle p{margin:0}.fleet-cycle .v2-102{margin-top:64px}.fleet-cycle .v2-108{font-size:24px}.fleet-cycle .v2-105{gap:18px}
+@media(max-width:760px){.fleet-cycle .four-grid{grid-template-columns:1fr;gap:28px}.fleet-cycle .v2-103{display:none}.fleet-cycle .v2-105{padding-left:24px;border-left:1px solid var(--border);gap:10px}.fleet-cycle .v2-105>span:first-child{position:absolute;left:-6px;top:5px}.fleet-cycle .v2-107{margin-top:0}.fleet-cycle .v2-102{margin-top:32px}}
+
+/* Alternating image/text compositions on the Fleet project page. */
+.fleet-media-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(32px,4vw,64px)}
+.fleet-media-row .fleet-media-copy{min-width:0}
+.fleet-media-left .fleet-media-copy{grid-column:2;grid-row:1}
+.fleet-media-left .fleet-detail-figure{grid-column:1;grid-row:1}
+.fleet-media-row .fleet-detail-figure{width:100%;max-width:none;margin:0}
+.fleet-media-row .fleet-detail-figure img{max-height:none;height:auto;border:1px solid var(--border);border-radius:8px}
+.fleet-media-row .fleet-detail-copy p:last-child{margin-bottom:0}
+@media(max-width:900px){.fleet-media-row{grid-template-columns:1fr;gap:28px}.fleet-media-left .fleet-media-copy,.fleet-media-left .fleet-detail-figure{grid-column:auto;grid-row:auto}.fleet-media-row .fleet-detail-figure{max-width:680px;margin-inline:auto}}
+
+/* More breathing room for the Fleet long-form description. */
+.page-me-fleet.precision-about .fleet-detail{padding-block:80px}
+.page-me-fleet.precision-about .fleet-detail h2{margin:22px 0 28px}
+.page-me-fleet.precision-about .fleet-detail-copy p{line-height:1.8;margin-bottom:24px}
+.page-me-fleet.precision-about .fleet-detail-copy p:last-child{margin-bottom:0}
+.page-me-fleet.precision-about .fleet-media-row{gap:clamp(40px,5vw,80px)}
+@media(max-width:900px){.page-me-fleet.precision-about .fleet-detail{padding-block:56px}.page-me-fleet.precision-about .fleet-media-row{gap:32px}.page-me-fleet.precision-about .fleet-detail h2{margin:18px 0 24px}}
