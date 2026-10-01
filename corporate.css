@@ -66,3 +66,8 @@ a:hover .corporate-link>span,.corporate-link:hover>span{transform:translateX(4px
 
 .corporate-brand-signature{margin-top:18px;color:#aeb7b2}.corporate-hero h1{font-size:clamp(40px,3.75vw,56px)}
 @media(max-width:760px){.corporate-hero h1{font-size:38px}}
+
+.corporate-company-hero .corporate-hero-image{object-position:center 52%}
+.corporate-company-hero .corporate-hero-copy{max-width:520px}
+.corporate-company-hero .corporate-hero-shade{background:linear-gradient(90deg,rgba(11,18,17,.96) 0%,rgba(11,18,17,.87) 25%,rgba(11,18,17,.4) 47%,rgba(11,18,17,.04) 72%),linear-gradient(0deg,rgba(11,18,17,.75),transparent 25%)}
+@media(max-width:760px){.corporate-company-hero .corporate-hero-image{object-position:center}.corporate-company-hero .corporate-hero-shade{background:linear-gradient(0deg,#0b1211 35%,transparent 80%)}}
