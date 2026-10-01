@@ -323,3 +323,12 @@ a:hover{color:#FFFFFF}
 
 
 .page-me-race.precision-overview .section-race-hero .v2-21{background:linear-gradient(90deg,rgba(11,18,17,.72) 0%,rgba(11,18,17,.62) 28%,rgba(11,18,17,.24) 48%,transparent 66%),linear-gradient(to top,#0b1211 0%,transparent 42%)}
+
+/* Laptop shell retains the original, zoomable Race screen. */
+.section-capabilities .race-laptop{max-width:calc(35svh * 1.84);padding-inline:20px}
+.race-laptop .race-laptop-screen{position:relative;padding:14px 8px 9px;border:1px solid #8e9597;border-radius:16px 16px 5px 5px;background:#080b0c;box-shadow:inset 0 0 0 2px #292e30,0 20px 50px #0006;overflow:hidden}
+.race-laptop-screen:before{content:'';position:absolute;top:5px;left:50%;width:4px;height:4px;border-radius:50%;background:#333c40;box-shadow:0 0 0 1px #111}
+.race-laptop .race-laptop-screen img{border-radius:5px;max-height:none}
+.race-laptop-base{position:relative;height:13px;margin:0 -20px;background:linear-gradient(90deg,#454b4e,#d0d3d4 3%,#737b7f 15%,#aeb5b8 50%,#737b7f 85%,#d0d3d4 97%,#454b4e);border-radius:1px 1px 45% 45% / 1px 1px 80% 80%;box-shadow:0 8px 15px #0008}
+.race-laptop-base:before{content:'';position:absolute;top:0;left:42%;width:16%;height:4px;border-radius:0 0 8px 8px;background:#535b5f;box-shadow:0 1px 1px #ddd6}
+@media(max-width:760px){.section-capabilities .race-laptop{max-width:100%;padding-inline:12px}.race-laptop .race-laptop-screen{padding:12px 5px 6px;border-radius:11px 11px 3px 3px}.race-laptop-base{margin-inline:-12px;height:10px}}
