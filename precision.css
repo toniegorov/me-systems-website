@@ -307,8 +307,8 @@ a:hover{color:#FFFFFF}
 .device-hero .v2-28{max-width:580px}
 .device-product-name{display:block;font-size:32px;font-weight:600;letter-spacing:-.025em;color:#f7f8f8;line-height:1.2}
 .page-me-device .device-product h3{font-size:22px;margin-top:14px}
-.device-can-crop{display:block;position:relative;overflow:hidden;aspect-ratio:365/326;border:1px solid #3b494f;border-radius:8px;background:#203d56}
-.device-can-figure .device-can-crop img{position:absolute;left:-6.849%;top:-24.85%;width:350.685%;max-width:none;height:auto;max-height:none;border-radius:0}
+.device-can-crop{display:block;position:relative;overflow:hidden;aspect-ratio:5/4;border:1px solid #3b494f;border-radius:8px;background:#111a18}
+.device-can-figure .device-can-crop img{display:block;width:100%;height:auto;max-height:none;border-radius:0}
 .device-can-figure figcaption{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;line-height:1.5}
 .device-can-hint{font-size:13px;color:#b7bec4}
 @media(min-width:761px){.page-me-fleet #fleet-hero .v2-30{max-width:460px}.device-hero .v2-21{background:linear-gradient(90deg,#0b1211 2%,rgba(11,18,17,.92) 24%,rgba(11,18,17,.1) 64%,transparent)}}
